@@ -1,10 +1,11 @@
+
 import React, { useState, FormEvent, useMemo } from 'react';
 import { type Income } from '../types';
 
 interface IncomePageProps {
   incomes: Income[];
-  onAddIncome: (income: Omit<Income, 'id'>) => void;
-  onDeleteIncome: (id: number) => void;
+  onAddIncome: (income: Omit<Income, 'id'>) => Promise<void>;
+  onDeleteIncome: (id: string) => Promise<void>;
 }
 
 const IncomeForm: React.FC<{onAddIncome: (income: Omit<Income, 'id'>) => void; onClose: () => void;}> = ({ onAddIncome, onClose }) => {

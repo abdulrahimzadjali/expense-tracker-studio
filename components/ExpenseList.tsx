@@ -1,4 +1,5 @@
 
+
 import React, { useMemo } from 'react';
 import { type Expense, type Category } from '../types';
 import ExpenseItem from './ExpenseItem';
@@ -6,7 +7,7 @@ import ExpenseItem from './ExpenseItem';
 interface ExpenseListProps {
   expenses: Expense[];
   categories: Category[];
-  onDeleteExpense: (id: number) => void;
+  onDeleteExpense: (id: string) => void;
 }
 
 const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, categories, onDeleteExpense }) => {
@@ -54,7 +55,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, categories, onDelet
                 <ExpenseItem 
                   key={expense.id} 
                   expense={expense} 
-                  category={categoriesMap.get(expense.categoryId)} 
+                  category={categoriesMap.get(expense.category_id)} 
                   onDelete={onDeleteExpense} 
                 />
               ))}

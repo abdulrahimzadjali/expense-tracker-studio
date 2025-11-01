@@ -4,19 +4,22 @@ export interface Category {
   name: string;
   icon: string; // SVG path data
   color: string; // A key for a color map, e.g., 'teal'
+  user_id?: string;
 }
 
 export interface Expense {
-  id: number;
+  id: string;
   description: string;
   amount: number;
-  categoryId: string;
+  category_id: string;
   date: Date;
+  user_id?: string;
 }
 
 export interface Income {
-  id: number;
+  id: string;
   description: string;
   amount: number;
   date: Date;
+  user_id?: string;
 }

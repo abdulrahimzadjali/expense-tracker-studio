@@ -1,11 +1,12 @@
 
-const CACHE_NAME = 'expense-tracker-v1';
+const CACHE_NAME = 'expense-tracker-v2';
 const urlsToCache = [
   '/',
   '/index.html',
   '/index.tsx',
   '/App.tsx',
   '/types.ts',
+  '/lib/supabaseClient.ts',
   '/components/Header.tsx',
   '/components/Navigation.tsx',
   '/components/Dashboard.tsx',
@@ -18,13 +19,15 @@ const urlsToCache = [
   '/components/ExpenseList.tsx',
   '/components/ExpenseItem.tsx',
   '/components/CategoryIcon.tsx',
+  '/components/AuthPage.tsx',
   '/icon.svg',
   'https://aistudiocdn.com/recharts@^3.3.0',
   'https://aistudiocdn.com/react@^19.2.0',
   'https://aistudiocdn.com/react@^19.2.0/',
   'https://aistudiocdn.com/react-dom@^19.2.0/',
   'https://aistudiocdn.com/@google/genai@^1.28.0',
-  'https://cdn.tailwindcss.com'
+  'https://cdn.tailwindcss.com',
+  'https://aistudiocdn.com/@supabase/supabase-js@^2.45.0'
 ];
 
 self.addEventListener('install', event => {
@@ -44,7 +47,7 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).catch(() => caches.match(event.request));
       })
   );
 });

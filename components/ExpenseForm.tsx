@@ -81,7 +81,8 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onAddExpense, categories, onC
     onAddExpense({
       description,
       amount: parsedAmount,
-      categoryId,
+      // FIX: 'categoryId' does not exist in type 'Omit<Expense, "id">'. Corrected to 'category_id'.
+      category_id: categoryId,
       date: new Date(date + 'T00:00:00'),
     });
     onClose();

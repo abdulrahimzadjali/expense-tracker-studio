@@ -27,7 +27,8 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses, categories }) => 
     const categoriesMap = new Map(categories.map(cat => [cat.id, cat]));
 
     const categoryTotals = expenses.reduce((acc, expense) => {
-      const category = categoriesMap.get(expense.categoryId);
+      // FIX: Property 'categoryId' does not exist on type 'Expense'. Corrected to 'category_id'.
+      const category = categoriesMap.get(expense.category_id);
       if (category) {
           acc[category.name] = (acc[category.name] || 0) + expense.amount;
       }

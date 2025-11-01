@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Expense, Category } from '../types';
 import ExpenseList from './ExpenseList';
@@ -6,8 +7,8 @@ import ExpenseForm from './ExpenseForm';
 interface ExpensesPageProps {
   expenses: Expense[];
   categories: Category[];
-  onAddExpense: (expense: Omit<Expense, 'id'>) => void;
-  onDeleteExpense: (id: number) => void;
+  onAddExpense: (expense: Omit<Expense, 'id'>) => Promise<void>;
+  onDeleteExpense: (id: string) => Promise<void>;
 }
 
 const ExpensesPage: React.FC<ExpensesPageProps> = ({ expenses, categories, onAddExpense, onDeleteExpense }) => {

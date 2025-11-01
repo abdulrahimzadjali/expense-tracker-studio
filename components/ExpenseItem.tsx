@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { type Expense, type Category } from '../types';
 import CategoryIcon from './CategoryIcon';
@@ -5,7 +6,7 @@ import CategoryIcon from './CategoryIcon';
 interface ExpenseItemProps {
   expense: Expense;
   category?: Category;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 }
 
 const ExpenseItem: React.FC<ExpenseItemProps> = ({ expense, category, onDelete }) => {
