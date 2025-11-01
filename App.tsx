@@ -158,8 +158,6 @@ const AppWithSession: React.FC<{ session: Session }> = ({ session }) => {
     }, [session.user.id]);
     
     const deleteCategory = useCallback(async (id: string) => {
-        // Note: This does not delete associated expenses. They will become uncategorized.
-        // A more robust solution might involve setting category_id to null or deleting expenses.
         try {
             const { error } = await supabase.from('categories').delete().eq('id', id);
             if (error) throw error;

@@ -1,5 +1,5 @@
 {
-  "name": "Expense Tracker",
+  "name": "Expense Tracker PWA",
   "description": "A modern, mobile-friendly expense tracker application to help you manage your finances. Add, view, and categorize your expenses with ease, and visualize your spending habits with an interactive chart.",
   "requestFramePermissions": []
 }

@@ -1,3 +1,4 @@
+
 import React, { useMemo } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { type Expense, type Category } from '../types';
@@ -27,7 +28,6 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses, categories }) => 
     const categoriesMap = new Map(categories.map(cat => [cat.id, cat]));
 
     const categoryTotals = expenses.reduce((acc, expense) => {
-      // FIX: Property 'categoryId' does not exist on type 'Expense'. Corrected to 'category_id'.
       const category = categoriesMap.get(expense.category_id);
       if (category) {
           acc[category.name] = (acc[category.name] || 0) + expense.amount;
@@ -69,8 +69,6 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses, categories }) => 
               dataKey="value"
               nameKey="name"
             >
-              {/* FIX: Explicitly type 'entry' to resolve 'Property 'name' does not exist on type 'unknown'' error. */}
-              {/* The type inference for recharts data can be problematic with some TypeScript configurations. */}
               {chartData.map((entry: { name: string; color: string; }) => (
                 <Cell key={`cell-${entry.name}`} fill={tailwindColorMap[entry.color] || tailwindColorMap.slate} />
               ))}
@@ -78,8 +76,6 @@ const ExpenseChart: React.FC<ExpenseChartProps> = ({ expenses, categories }) => 
             <Tooltip
               contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '0.5rem' }}
               itemStyle={{ color: '#cbd5e1' }}
-              // FIX: Explicitly type 'value' as 'number' to resolve 'Property 'toFixed' does not exist on type 'unknown'' error.
-              // The formatter function from recharts can pass values with a type that is not correctly inferred.
               formatter={(value: number) => `${value.toFixed(3)} OMR`}
             />
             <Legend iconSize={10} />
