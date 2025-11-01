@@ -53,6 +53,29 @@ const AppWithSession: React.FC<{ session: Session }> = ({ session }) => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [currentPage, setCurrentPage] = useState('dashboard');
     const [dataLoading, setDataLoading] = useState(true);
+    const [installPrompt, setInstallPrompt] = useState<any>(null);
+
+    useEffect(() => {
+        const handler = (e: Event) => {
+            e.preventDefault();
+            setInstallPrompt(e);
+        };
+        window.addEventListener('beforeinstallprompt', handler);
+        return () => window.removeEventListener('beforeinstallprompt', handler);
+    }, []);
+
+    const handleInstallClick = () => {
+        if (!installPrompt) return;
+        installPrompt.prompt();
+        installPrompt.userChoice.then((choiceResult: { outcome: string }) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+            setInstallPrompt(null);
+        });
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -189,7 +212,7 @@ const AppWithSession: React.FC<{ session: Session }> = ({ session }) => {
     return (
         <div className="min-h-screen bg-slate-900 text-white font-sans pb-24">
             <div className="container mx-auto max-w-lg p-4">
-                <Header session={session} />
+                <Header session={session} onInstall={handleInstallClick} showInstallButton={!!installPrompt} />
                 <main>
                     {renderPage()}
                 </main>

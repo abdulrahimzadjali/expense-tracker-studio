@@ -1,5 +1,4 @@
-
-const CACHE_NAME = 'expense-tracker-v2';
+const CACHE_NAME = 'expense-tracker-v3';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -41,16 +40,29 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
+  // Exclude Supabase API calls from caching logic
+  if (event.request.url.includes('supabase.co')) {
+    return; // Let the browser handle the request
+  }
+
+  // Stale-while-revalidate strategy for app assets
   event.respondWith(
     caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request).catch(() => caches.match(event.request));
+      .then(cachedResponse => {
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            caches.open(CACHE_NAME).then(cache => {
+              cache.put(event.request, networkResponse.clone());
+            });
+          }
+          return networkResponse;
+        });
+
+        return cachedResponse || fetchPromise;
       })
   );
 });
+
 
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
