@@ -1,0 +1,17 @@
+
+{
+  "short_name": "Expense Tracker",
+  "name": "Expense Tracker",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0f172a",
+  "background_color": "#0f172a",
+  "description": "A modern, mobile-friendly expense tracker application to help you manage your finances."
+}
